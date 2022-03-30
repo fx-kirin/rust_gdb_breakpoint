@@ -6,6 +6,7 @@ edition = "2018"
 repository = "https://github.com/fx-kirin/rust_gdb_breakpoint"
 description="Call gdb to the current process and atatch in a new tmux window"
 readme="README.md"
+license="MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

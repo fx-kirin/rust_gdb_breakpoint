@@ -12,3 +12,11 @@ pub fn main() {
     breakpoint();
 }
 ```
+
+## Recommendation
+
+Multithreadding rust programs can call `SIGSTOP` many times. I recommend you to add following command into your `.gdbinit` file. So I used `SIGINT` instead of `SIGSTOP` on the second and later `breakpoint` calls.
+
+```
+handle SIGSTOP "nostop" "pass" "noprint"
+```

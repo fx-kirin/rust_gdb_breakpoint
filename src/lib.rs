@@ -4,15 +4,23 @@ use nix::sys::signal::{kill, Signal};
 use nix::unistd::getpid;
 use std::process::Command;
 
+use std::sync::Once;
+
+static INIT: Once = Once::new();
+
 pub fn breakpoint() {
-    let gdb = format!("sudo ugdb --gdb=rust-gdb --pid {}", getpid());
-    let argv = vec!["neww", &gdb];
-    let argv_c = argv.iter().map(|s| s.to_string()).collect::<Vec<_>>();
-    Command::new("tmux")
-        .args(&argv_c[..])
-        .spawn()
-        .unwrap();
-    kill(getpid(), Signal::SIGSTOP).unwrap();
+    let mut init = false;
+    INIT.call_once(|| {
+        let gdb = format!("sudo ugdb --gdb=rust-gdb --pid {}", getpid());
+        let argv = vec!["neww", &gdb];
+        let argv_c = argv.iter().map(|s| s.to_string()).collect::<Vec<_>>();
+        Command::new("tmux").args(&argv_c[..]).spawn().unwrap();
+        kill(getpid(), Signal::SIGSTOP).unwrap();
+        init = true;
+    });
+    if !init{
+        kill(getpid(), Signal::SIGINT).unwrap();
+    }
 }
 
 #[cfg(test)]
@@ -21,6 +29,8 @@ mod tests {
     #[test]
     fn it_works() {
         let x = 3 + 4;
+        breakpoint();
+        assert!(true);
         breakpoint();
         assert!(true);
     }

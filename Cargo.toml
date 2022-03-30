@@ -1,0 +1,13 @@
+[package]
+name = "gdb_breakpoint"
+version = "0.1.0"
+authors = ["kirin <fx.kirin@gmail.com>"]
+edition = "2018"
+repository = "https://github.com/fx-kirin/rust_gdb_breakpoint"
+description="Call gdb to the current process and atatch in a new tmux window"
+readme="README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+nix = "0.13.0"

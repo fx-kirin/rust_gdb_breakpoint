@@ -2,6 +2,7 @@
 
 Launch `ugdb` and attach to current process with new tmux window.
 
+![DEMO](gdb_breakpoint_demo.gif "GDB DEMO")
 
 ``` rust
 use gdb_breakpoint::breakpoint;

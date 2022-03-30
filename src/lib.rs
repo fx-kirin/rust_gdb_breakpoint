@@ -15,10 +15,11 @@ pub fn breakpoint() {
         let argv = vec!["neww", &gdb];
         let argv_c = argv.iter().map(|s| s.to_string()).collect::<Vec<_>>();
         Command::new("tmux").args(&argv_c[..]).spawn().unwrap();
-        kill(getpid(), Signal::SIGSTOP).unwrap();
         init = true;
     });
-    if !init{
+    if init{
+        kill(getpid(), Signal::SIGSTOP).unwrap();
+    } else {
         kill(getpid(), Signal::SIGINT).unwrap();
     }
 }

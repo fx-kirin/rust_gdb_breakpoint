@@ -1,3 +1,4 @@
+#![feature(core_intrinsics)]
 extern crate nix;
 
 use nix::sys::signal::{kill, Signal};
@@ -20,7 +21,9 @@ pub fn breakpoint() {
     if init{
         kill(getpid(), Signal::SIGSTOP).unwrap();
     } else {
-        kill(getpid(), Signal::SIGINT).unwrap();
+        unsafe{
+            std::intrinsics::breakpoint();
+        }
     }
 }
 

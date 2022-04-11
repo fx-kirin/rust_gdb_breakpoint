@@ -20,10 +20,9 @@ pub fn breakpoint() {
     });
     if init{
         kill(getpid(), Signal::SIGSTOP).unwrap();
-    } else {
-        unsafe{
-            std::intrinsics::breakpoint();
-        }
+    }
+    unsafe{
+        std::intrinsics::breakpoint();
     }
 }
 

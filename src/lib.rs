@@ -23,6 +23,7 @@ pub fn breakpoint() {
         } else {
             format!("sudo ugdb --layout=\"(1s-1c)\" --gdb=rust-gdb --pid {}", getpid())
         };
+        println!("Launching {}", gdb);
         let argv = vec!["neww", &gdb];
         let argv_c = argv.iter().map(|s| s.to_string()).collect::<Vec<_>>();
         Command::new("tmux").args(&argv_c[..]).spawn().unwrap();

@@ -14,7 +14,7 @@ pub fn breakpoint() {
 
     let mut init = false;
     INIT.call_once(|| {
-        format!("ugdb --layout=\"(1s-1c)\" --gdb=rust-gdb --pid {}", getpid())
+        let gdb = format!("ugdb --layout=\"(1s-1c)\" --gdb=rust-gdb --pid {}", getpid());
         println!("Launching {}", gdb);
         let argv = vec!["neww", &gdb];
         let argv_c = argv.iter().map(|s| s.to_string()).collect::<Vec<_>>();

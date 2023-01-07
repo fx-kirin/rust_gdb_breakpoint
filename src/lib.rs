@@ -10,8 +10,6 @@ use std::sync::Once;
 static INIT: Once = Once::new();
 
 pub fn breakpoint() {
-    use std::env;
-
     let mut init = false;
     INIT.call_once(|| {
         let gdb = format!("ugdb --layout=\"(1s-1c)\" --gdb=rust-gdb --pid {}", getpid());
